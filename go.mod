@@ -1,6 +1,6 @@
-module github.com/geiqin/thirdparty
+module github.com/libra82/thirdparty
 
-go 1.14
+go 1.13
 
 require (
 	github.com/satori/go.uuid v1.2.0
