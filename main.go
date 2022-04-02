@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/geiqin/thirdparty/oauth"
+	"github.com/libra82/thirdparty/oauth"
 	"log"
 )
 

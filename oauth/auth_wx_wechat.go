@@ -2,8 +2,8 @@ package oauth
 
 import (
 	"errors"
-	"github.com/geiqin/thirdparty/result"
-	"github.com/geiqin/thirdparty/utils"
+	"github.com/libra82/thirdparty/result"
+	"github.com/libra82/thirdparty/utils"
 )
 
 //微信授权登录（第三方应用）

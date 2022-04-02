@@ -1,7 +1,7 @@
 package oauth
 
 import (
-	"github.com/geiqin/thirdparty/utils"
+	"github.com/libra82/thirdparty/utils"
 )
 
 //基本配置
