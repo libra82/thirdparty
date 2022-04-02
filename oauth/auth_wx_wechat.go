@@ -54,8 +54,8 @@ func (a *AuthWxWechat) GetWebAccessToken(code string) (*result.TokenResult, erro
 		return nil, err
 	}
 	m := utils.JsonToMSS(body)
-	if _, ok := m["error"]; ok {
-		return nil, errors.New(m["error_description"])
+	if _, ok := m["errcode"]; ok {
+		return nil, errors.New(m["errmsg"])
 	}
 	token := &result.TokenResult{
 		AccessToken:  m["access_token"],
@@ -86,8 +86,8 @@ func (a *AuthWxWechat) GetAppAccessToken(code string) (*result.TokenResult, erro
 		return nil, err
 	}
 	m := utils.JsonToMSS(body)
-	if _, ok := m["error"]; ok {
-		return nil, errors.New(m["error_description"])
+	if _, ok := m["errcode"]; ok {
+		return nil, errors.New(m["errmsg"])
 	}
 	token := &result.TokenResult{
 		AccessToken:  m["access_token"],
@@ -116,8 +116,8 @@ func (a *AuthWxWechat) GetUserInfo(accessToken string, openId string) (*result.U
 		return nil, err
 	}
 	m := utils.JsonToMSS(body)
-	if _, ok := m["error"]; ok {
-		return nil, errors.New(m["error_description"])
+	if _, ok := m["errcode"]; ok {
+		return nil, errors.New(m["errmsg"])
 	}
 	user := &result.UserResult{
 		OpenId:    m["openid"],
