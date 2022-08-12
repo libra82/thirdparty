@@ -16,6 +16,7 @@ type BaseRequest struct {
 	TokenUrl       string      //获得令牌URL
 	AccessTokenUrl string      //获得访问令牌URL
 	RefreshUrl     string      //刷新令牌URL
+	openUnionIdUrl string      //获取openid和Unionid
 	userInfoUrl    string      //获取用户信息URL
 	config         *AuthConfig //配置信息
 	registerSource int32       //注册来源

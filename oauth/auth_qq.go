@@ -17,7 +17,8 @@ func NewAuthQq(conf *AuthConfig) *AuthQq {
 
 	authRequest.authorizeUrl = "https://graph.qq.com/oauth2.0/authorize"
 	authRequest.TokenUrl = "https://graph.qq.com/oauth2.0/token"
-	authRequest.userInfoUrl = "https://graph.qq.com/oauth2.0/me"
+	authRequest.openUnionIdUrl = "https://graph.qq.com/oauth2.0/me"
+	authRequest.userInfoUrl = "https://graph.qq.com/user/get_user_info"
 
 	return authRequest
 }
@@ -68,9 +69,10 @@ func (a *AuthQq) GetToken(code string) (*result.TokenResult, error) {
 
 //获取第三方用户信息
 func (a *AuthQq) GetUserInfo(openId string, accessToken string) (*result.UserResult, error) {
-	url := utils.NewUrlBuilder(a.TokenUrl).
-		AddParam("open_id", openId).
+	url := utils.NewUrlBuilder(a.userInfoUrl).
+		AddParam("openid", openId).
 		AddParam("access_token", accessToken).
+		AddParam("oauth_consumer_key", a.config.ClientId).
 		Build()
 
 	body, err := utils.Get(url)
