@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/libra82/thirdparty/result"
 	"github.com/libra82/thirdparty/utils"
+	"strconv"
 	"strings"
 )
 
@@ -120,7 +121,7 @@ func (a *AuthQq) GetUserInfo(openId string, accessToken string) (*result.UserRes
 		City:      m["city"],     //普通用户个人资料填写的城市
 		Province:  m["province"], //普通用户个人资料填写的省份
 		Source:    a.registerSource,
-		Gender:    utils.GetRealGender(m["gender"]).Desc,
+		Gender:    strconv.Itoa(utils.GetRealGender(m["gender"]).Code),
 	}
 	if m["ret"] != "0" { //ret	返回码  0: 正确返回
 		return nil, errors.New("获取用户信息失败！")

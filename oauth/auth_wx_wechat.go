@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/libra82/thirdparty/result"
 	"github.com/libra82/thirdparty/utils"
+	"strconv"
 )
 
 //微信授权登录（第三方应用）
@@ -130,7 +131,7 @@ func (a *AuthWxWechat) GetUserInfo(openId string, accessToken string) (*result.U
 		Country:   m["country"],    //国家，如中国为 CN
 		Language:  m["language"],
 		Source:    a.registerSource,
-		Gender:    utils.GetWechatRealGender(m["sex"]).Desc, //普通用户性别，1 为男性，2 为女性
+		Gender:    strconv.Itoa(utils.GetWechatRealGender(m["sex"]).Code), //普通用户性别，1 为男性，2 为女性
 	}
 	if user.OpenId == "" {
 		return nil, errors.New("获取用户信息失败！")
