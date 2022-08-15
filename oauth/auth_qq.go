@@ -96,5 +96,8 @@ func (a *AuthQq) GetUserInfo(openId string, accessToken string) (*result.UserRes
 		Source:    a.registerSource,
 		Gender:    utils.GetRealGender(m["gender"]).Desc,
 	}
+	if m["ret"] != "0" { //ret	返回码  0: 正确返回
+		return nil, errors.New("获取用户信息失败！")
+	}
 	return user, nil
 }

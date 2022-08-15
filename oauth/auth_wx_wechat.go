@@ -105,7 +105,7 @@ func (a *AuthWxWechat) GetAppAccessToken(code string) (*result.TokenResult, erro
 }
 
 //获取第三方用户信息
-func (a *AuthWxWechat) GetUserInfo(accessToken string, openId string) (*result.UserResult, error) {
+func (a *AuthWxWechat) GetUserInfo(openId string, accessToken string) (*result.UserResult, error) {
 	url := utils.NewUrlBuilder(a.userInfoUrl).
 		AddParam("openid", openId).
 		AddParam("access_token", accessToken).
@@ -120,7 +120,7 @@ func (a *AuthWxWechat) GetUserInfo(accessToken string, openId string) (*result.U
 		return nil, errors.New(m["errmsg"])
 	}
 	user := &result.UserResult{
-		OpenId:    m["openid"],     //	普通用户的标识，对当前开发者帐号唯一
+		OpenId:    m["openid"],     //普通用户的标识，对当前开发者帐号唯一
 		UnionId:   m["unionid"],    //用户统一标识。针对一个微信开放平台帐号下的应用，同一用户的 unionid 是唯一的。
 		UserName:  m["nickname"],   //普通用户昵称
 		NickName:  m["nickname"],   //普通用户昵称
@@ -133,7 +133,7 @@ func (a *AuthWxWechat) GetUserInfo(accessToken string, openId string) (*result.U
 		Gender:    utils.GetWechatRealGender(m["sex"]).Desc, //普通用户性别，1 为男性，2 为女性
 	}
 	if user.OpenId == "" {
-		return nil, errors.New("获取用户信息为空！")
+		return nil, errors.New("获取用户信息失败！")
 	}
 	return user, nil
 }
