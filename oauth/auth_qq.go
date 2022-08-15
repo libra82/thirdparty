@@ -83,21 +83,18 @@ func (a *AuthQq) GetUserInfo(openId string, accessToken string) (*result.UserRes
 	if _, ok := m["error"]; ok {
 		return nil, errors.New(m["error_description"])
 	}
+	logo := m["figureurl_qq_2"] //大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有。
+	if len(logo) == 0 {
+		logo = m["figureurl_qq_1"] //大小为40×40像素的QQ头像URL。
+	}
 	user := &result.UserResult{
-		UUID:      m["id"],
-		UserName:  m["login"],
-		NickName:  m["name"],
-		AvatarUrl: m["avatar_url"],
-		Company:   m["company"],
-		Blog:      m["blog"],
-		Location:  m["location"],
-		Email:     m["email"],
-		Remark:    m["bio"],
-		Url:       m["html_url"],
-		CreatedAt: m["created_at"],
-		UpdatedAt: m["updated_at"],
+		NickName:  m["nickname"], //用户在QQ空间的昵称。
+		AvatarUrl: logo,
+		Location:  m["province"] + m["city"],
+		City:      m["city"],     //普通用户个人资料填写的城市
+		Province:  m["province"], //普通用户个人资料填写的省份
 		Source:    a.registerSource,
-		Gender:    utils.GetRealGender("").Desc,
+		Gender:    utils.GetRealGender(m["gender"]).Desc,
 	}
 	return user, nil
 }
