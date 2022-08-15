@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/libra82/thirdparty/result"
 	"github.com/libra82/thirdparty/utils"
+	"strings"
 )
 
 //QQ授权登录
@@ -65,6 +66,31 @@ func (a *AuthQq) GetToken(code string) (*result.TokenResult, error) {
 		TokenType:    m["token_type"],
 	}
 	return token, nil
+}
+
+//获取openid和unionid
+func (a *AuthQq) GetOpenUnionId(accessToken string) (*result.Credentials, error) {
+	url := utils.NewUrlBuilder(a.openUnionIdUrl).
+		AddParam("access_token", accessToken).
+		AddParam("unionid", 1).
+		Build()
+
+	body, err := utils.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	//callback( {"error":100007,"error_description":"param access token is wrong or lost "} );
+	body = strings.ReplaceAll(body, "callback(", "")
+	body = strings.ReplaceAll(body, ");", "")
+	m := utils.JsonToMSS(body)
+	if _, ok := m["error"]; ok {
+		return nil, errors.New(m["error_description"])
+	}
+	credentials := &result.Credentials{
+		OpenId:  m["openid"],
+		Unionid: m["unionid"],
+	}
+	return credentials, nil
 }
 
 //获取第三方用户信息
