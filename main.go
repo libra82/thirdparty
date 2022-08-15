@@ -18,7 +18,7 @@ func main() {
 	//
 	//log.Println("ssss:", err, userInfo)
 
-	qqConf := &oauth.AuthConfig{ClientId: "102012591", ClientSecret: "5BB2kLn6GH8oIcqv", RedirectUrl: ""}
+	qqConf := &oauth.AuthConfig{ClientId: "xxx", ClientSecret: "xxxxxx", RedirectUrl: ""}
 	qqAuth := oauth.NewAuthQq((qqConf))
-	fmt.Println(qqAuth.GetOpenUnionId("F8A2D7F2DD4954457266769B648C4324"))
+	fmt.Println(qqAuth.GetOpenUnionId("F8A2D7F2DD4954457266769B648C43aa"))
 }
